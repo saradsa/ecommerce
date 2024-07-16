@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+
+{% block start %}
+
+<div class="mt-5 pt-2" style="height: 100px;">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="position: relative;">
+                <img src="/media/{{firstcategory.category_image}}" alt="" height="600px" width="100%">
+                <div class="position-absolute sticky-top" style="position:absolute; top: 40%; left: 25%; color: white; z-index: 1;">
+                    <h1 style="font-size: 60px; font-weight: bold;">{{firstcategory.category_name}}</h1>
+                    <a href="{% url 'category_product' firstcategory.uid %}" style="width: 50px; height: 30px; background-color: black; color: white; padding: 12px; letter-spacing: 0.9px; margin-top: 15px; font-weight: bold; border-radius: 5%;" class="carousel-item-button">Shop Now</a>
+                </div>
+            </div>
+        {% for category in categories %}
+          <div class="carousel-item" style="position: relative;">
+            <img src="/media/{{category.category_image}}" alt="" height="600px" width="100%">
+            <div class="position-absolute sticky-top" style="position:absolute; top: 40%; left: 25%; color: white; z-index: 1;">
+                <h1 style="font-size: 60px; font-weight: bold;">{{category.category_name}}</h1>
+                <a href="{% url 'category_product' category.uid %}" style="width: 50px; height: 30px; background-color: black; color: white; padding: 12px; letter-spacing: 0.9px; margin-top: 15px; font-weight: bold; border-radius: 5%;" class="carousel-item-button">Shop Now</a>
+            </di>
+          </div>
+        {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+      
+</div>
+
+<div class="container mt-5 pt-5">
+
+    <h2>ALL PRODUCTS</h2>
+    <hr>
+    <div class="row">
+
+        {% for product in products %}
+        <div class="col-md-3">
+            <figure class="card card-product-grid">
+                <div class="img-wrap"> <img src="/media/{{ product.product_images.first.image }}"> </div>
+                <figcaption class="info-wrap border-top">
+                    <a href="{% url 'get_product' product.slug %}" class="title">
+                        <em>{{ product.product_name }}</em>
+                    </a>
+                    <div class="price mt-2">Rs. {{ product.price }}</div> <!-- price-wrap.// -->
+                </figcaption>
+            </figure> <!-- card // -->
+        </div> <!-- col.// -->
+
+        {% endfor %}
+
+    </div>
+
+    </div>
+
+{% endblock %}
